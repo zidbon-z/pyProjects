@@ -35,6 +35,7 @@ c.execute("""CREATE TABLE catalog (
 '''
 # Create a window that lists all cards in catalog
 def list_cards():
+    global list_cards_w
     list_cards_w = Tk()
     list_cards_w.title('All Cards in Catalog')
     list_cards_w.geometry('400x800')
@@ -75,9 +76,13 @@ def list_cards():
     # Close Connection
     conn.close()
 
+    # Create a button to close the list window
+    close_list_btn = Button(list_cards_w, text="Close", command=close_list)
+    close_list_btn.grid(row=3, column=1, pady=10, padx=10, ipadx=50)
 
 # Create a Window to Add a Card
 def add_card():
+    global add_card_w
     add_card_w = Tk()
     add_card_w.title('Add a Card to Catalog')
     add_card_w.geometry("400x500")
@@ -147,11 +152,15 @@ def add_card():
     # Create a Button to Save a Card in the Add Card Window
     add_btn = Button(add_card_w, text="Save", command=submit)
     add_btn.grid(row=12, column=0, columnspan=2, pady=10, padx=10, ipadx=50)
-
+    
+    # Create a button to close the add window
+    close_add_btn = Button(add_card_w, text="Close", command=close_add)
+    close_add_btn.grid(row=13, column=0, columnspan=2, pady=10, padx=10, ipadx=50)
 
 
 # Create a window to delete a card
 def delete_window():
+    global delete_w
     delete_w = Tk()
     delete_w.title('Delete a Card')
     delete_w.geometry("400x400")
@@ -170,6 +179,10 @@ def delete_window():
     # Create Delete Button
     delete_btn = Button(delete_w, text="Delete Card", command=delete)
     delete_btn.grid(row=1, column=1, pady=10, padx=10, ipadx=50)
+    
+    # Create a button to close the delete window
+    close_delete_btn = Button(delete_w, text="Close", command=close_delete) 
+    close_delete_btn.grid(row=2, column=1, pady=10, padx=10, ipadx=50)
 
 
     
@@ -197,68 +210,111 @@ def delete():
 
 # Create a Window to Edit a card
 def edit():
+    global editor
     editor = Tk()
     editor.title('Edit a Card')
     editor.geometry("400x400")
     
 
 
+    # Create Global Variables
+    global editor_id
+    global editor_c_name
+    global editor_c_type
+    global editor_c_race
+    global editor_c_class
+    global editor_c_color
+    global editor_c_manacost
+    global editor_c_power
+    global editor_c_toughness
+    global editor_c_oracle
+    global editor_c_deck
+    global editor_c_deck_quantity
 
-    # Create Text Box Lables in the Editor Window
+    # Create Text Box Label for Card ID
+    editor_id_label = Label(editor, text="ID of Card to Edit")
+    editor_id_label.grid(row=0, column=0)
+
+    # Create Text Box for Card ID
+    editor_id = Entry(editor, width=10)
+    editor_id.grid(row=0, column=1)
+
+    # Create Text Box Labels in the Editor Window
     editor_c_name_label = Label(editor, text="Card Name")
-    editor_c_name_label.grid(row=0, column=0, pady=(10, 0))
+    editor_c_name_label.grid(row=1, column=0, pady=(10, 0))
     editor_c_type_label = Label(editor, text="Card Type")
-    editor_c_type_label.grid(row=1, column=0)
+    editor_c_type_label.grid(row=2, column=0)
     editor_c_race_label = Label(editor, text="Card Race")
-    editor_c_race_label.grid(row=2, column=0)
+    editor_c_race_label.grid(row=3, column=0)
     editor_c_class_label = Label(editor, text="Card Class")
-    editor_c_class_label.grid(row=3, column=0)
+    editor_c_class_label.grid(row=4, column=0)
     editor_c_color_label = Label(editor, text="Card Color")
-    editor_c_color_label.grid(row=4, column=0)
+    editor_c_color_label.grid(row=5, column=0)
     editor_c_manacost_label = Label(editor, text="Card Mana Cost")
-    editor_c_manacost_label.grid(row=5, column=0)
+    editor_c_manacost_label.grid(row=6, column=0)
     editor_c_power_label = Label(editor, text="Card Power")
-    editor_c_power_label.grid(row=6, column=0)
+    editor_c_power_label.grid(row=7, column=0)
     editor_c_toughness_label = Label(editor, text="Card Toughness")
-    editor_c_toughness_label.grid(row=7, column=0)
+    editor_c_toughness_label.grid(row=8, column=0)
     editor_c_oracle_label = Label(editor, text="Card Oracle")
-    editor_c_oracle_label.grid(row=8, column=0)
+    editor_c_oracle_label.grid(row=9, column=0)
     editor_c_deck_label = Label(editor, text="Deck")
-    editor_c_deck_label.grid(row=9, column=0)
+    editor_c_deck_label.grid(row=10, column=0)
     editor_c_deck_quantity_label = Label(editor, text="Quantity in Deck")
-    editor_c_deck_quantity_label.grid(row=10, column=0)
+    editor_c_deck_quantity_label.grid(row=11, column=0)
    
     # Create Text Boxes in the Editor Window 
     editor_c_name = Entry(editor, width=30)
-    editor_c_name.grid(row=0, column=1, padx=20, pady=(10, 0))
+    editor_c_name.grid(row=1, column=1, padx=20, pady=(10, 0))
     editor_c_type = Entry(editor, width=30)
-    editor_c_type.grid(row=1, column=1,)
+    editor_c_type.grid(row=2, column=1,)
     editor_c_race = Entry(editor, width=30)
-    editor_c_race.grid(row=2, column=1,)
+    editor_c_race.grid(row=3, column=1,)
     editor_c_class = Entry(editor, width=30)
-    editor_c_class.grid(row=3, column=1,)
+    editor_c_class.grid(row=4, column=1,)
     editor_c_color = Entry(editor, width=30)
-    editor_c_color.grid(row=4, column=1,)
+    editor_c_color.grid(row=5, column=1,)
     editor_c_manacost = Entry(editor, width=30)
-    editor_c_manacost.grid(row=5, column=1,)
+    editor_c_manacost.grid(row=6, column=1,)
     editor_c_power = Entry(editor, width=30)
-    editor_c_power.grid(row=6, column=1,)
+    editor_c_power.grid(row=7, column=1,)
     editor_c_toughness = Entry(editor, width=30)
-    editor_c_toughness.grid(row=7, column=1,)
+    editor_c_toughness.grid(row=8, column=1,)
     editor_c_oracle = Entry(editor, width=30)
-    editor_c_oracle.grid(row=8, column=1,)
+    editor_c_oracle.grid(row=9, column=1,)
     editor_c_deck = Entry(editor, width=30)
-    editor_c_deck.grid(row=9, column=1,)
+    editor_c_deck.grid(row=10, column=1,)
     editor_c_deck_quantity = Entry(editor, width=30)
-    editor_c_deck_quantity.grid(row=10, column=1)
+    editor_c_deck_quantity.grid(row=11, column=1)
+
+
+
+
+    # Create an ID Select Button for the Edit Window
+    select_id_btn = Button(editor, text="Select", command=select_id)
+    select_id_btn.grid(row=0, column=3)
+
+    # Create a Save Button
+    save_btn = Button(editor, text="Save", command=editor_submit)
+    save_btn.grid(row=12, column=0, columnspan=2, padx=5, pady=10, ipadx=100)
+
+    # Create a button to close the edit window
+    close_edit_btn = Button(editor, text="Close", command=close_edit)
+    close_edit_btn.grid(row=13, column=0,columnspan=2, pady=5, padx=10, ipadx=100) 
+
+
+
+    
+# Create Select ID Function
+def select_id():
+
 
     # Create a database or connect to one
     conn = sqlite3.connect('card_catalog.db')
     # Create cursor
     c = conn.cursor()
 
-    
-    card_id = c_delete.get()
+    card_id = editor_id.get()
     
     # Query the Database
     c.execute("SELECT * FROM catalog WHERE oid = " + card_id)
@@ -276,10 +332,79 @@ def edit():
         editor_c_deck.insert(0, card[9])
         editor_c_deck_quantity.insert(0, card[10])
     
-    # Create a Save Button
-    save_btn = Button(editor, text="Save")
-    save_btn.grid(row=11, column=0, columnspan=2, padx=5, pady=10, ipadx=100)
+    
+    # Commit Changes
+    conn.commit()
+    # Close Connection
+    conn.close()
   
+    #Clear The Text Box
+    #editor_id.delete(0, END)
+
+# Create Editor Submit Function
+def editor_submit():
+
+    # Create a database or connect to one
+    conn = sqlite3.connect('card_catalog.db')
+    # Create cursor
+    c = conn.cursor()
+
+    edit_card_id = editor_id.get()
+    
+    c.execute("""UPDATE catalog SET
+        
+        card_name = :name,
+        card_type = :type,
+        card_race = :race,
+        card_class = :class,
+        card_color = :color,
+        card_manacost = :manacost,
+        card_power = :power,
+        card_toughness = :toughness,
+        card_oracle = :oracle,
+        card_deck = :deck,
+        card_deck_quantity = :deck_quantity
+       
+        WHERE oid = :oid""",
+        {
+        'name': editor_c_name.get(),
+        'type': editor_c_type.get(),
+        'race': editor_c_race.get(),
+        'class': editor_c_class.get(),
+        'color': editor_c_color.get(),
+        'manacost': editor_c_manacost.get(),
+        'power': editor_c_power.get(),
+        'toughness': editor_c_toughness.get(),
+        'oracle': editor_c_oracle.get(),
+        'deck': editor_c_deck.get(),
+        'deck_quantity': editor_c_deck_quantity.get(),
+
+        'oid': edit_card_id
+
+        })
+
+    # Commit Changes
+    conn.commit()
+    # Close Connection
+    conn.close()
+
+
+    #Clear The Text Boxes
+    editor_c_name.delete(0, END)
+    editor_c_type.delete(0, END)
+    editor_c_race.delete(0, END)
+    editor_c_class.delete(0, END)
+    editor_c_color.delete(0, END)
+    editor_c_manacost.delete(0, END)
+    editor_c_power.delete(0, END)
+    editor_c_toughness.delete(0, END)
+    editor_c_oracle.delete(0, END)
+    editor_c_deck.delete(0, END)
+    editor_c_deck_quantity.delete(0, END)
+
+    editor_id.delete(0, END)
+
+
 
 # Create Submit Function
 def submit():
@@ -357,7 +482,19 @@ def query():
     # Close Connection
     conn.close()
 
+# Create Close Window Functions
 
+def close_list():
+    list_cards_w.destroy()
+
+def close_add():
+    add_card_w.destroy()
+
+def close_delete():
+    delete_w.destroy()
+
+def close_edit():
+    editor.destroy()
 
 # Create Submit Button
 submit_btn = Button(root, text="Add Card", command=add_card)
