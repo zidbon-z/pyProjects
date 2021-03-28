@@ -150,6 +150,46 @@ def add_card():
 
 
 
+# Create a window to delete a card
+def delete_window():
+    delete_w = Tk()
+    delete_w.title('Delete a Card')
+    delete_w.geometry("400x400")
+
+    # Create Text Box Labels in the Delete Window
+    c_delete_label = Label(delete_w, text="ID of Card to Delete")
+    c_delete_label.grid(row=0, column=0)
+
+    # Create Text Box in the Delete Window
+    c_delete = Entry(delete_w, width=30)
+    c_delete.grid(row=0, column=1)
+    
+    # Create Delete Button
+    delete_btn = Button(delete_w, text="Delete Card", command=delete)
+    delete_btn.grid(row=1, column=1, pady=10, padx=10, ipadx=50)
+
+
+    
+# Create Delete Function
+def delete():
+
+    # Create a database or connect to one
+    conn = sqlite3.connect('card_catalog.db')
+    # Create cursor
+    c = conn.cursor()
+
+    # Delete a Card
+    c.execute("DELETE from catalog WHERE oid = " + c_delete.get())
+
+    # Commit Changes
+    conn.commit()
+    # Close Connection
+    conn.close()
+
+    # Clear the Delete ID Box
+    c_delete.delete(0, END)
+
+
 
 
 # Create a Window to Edit a card
@@ -314,34 +354,16 @@ def query():
     # Close Connection
     conn.close()
 
-# Create Delete Function
-
-def delete():
-
-    # Create a database or connect to one
-    conn = sqlite3.connect('card_catalog.db')
-    # Create cursor
-    c = conn.cursor()
-
-    # Delete a Card
-    c.execute("DELETE from catalog WHERE oid = " + c_delete.get())
-
-    # Commit Changes
-    conn.commit()
-    # Close Connection
-    conn.close()
-
-    # Clear the Delete ID Box
-    c_delete.delete(0, END)
 
 
 # Create Submit Button
 submit_btn = Button(root, text="Add Card", command=add_card)
 submit_btn.grid(row=11, column=0, pady=10, padx=10, ipadx=50)
 
-# Create Delete Button
-delete_btn = Button(root, text="Delete Card", command=delete)
+# Create Delete Window Button
+delete_btn = Button(root, text="Delete Card", command=delete_window)
 delete_btn.grid(row=11, column=1, pady=10, padx=10, ipadx=50)
+
 
 # Create a Query Button
 query_btn = Button(root, text="List Cards", command=list_cards)
