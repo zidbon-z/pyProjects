@@ -156,6 +156,9 @@ def delete_window():
     delete_w.title('Delete a Card')
     delete_w.geometry("400x400")
 
+    # Create Global Variables
+    global c_delete
+
     # Create Text Box Labels in the Delete Window
     c_delete_label = Label(delete_w, text="ID of Card to Delete")
     c_delete_label.grid(row=0, column=0)
