@@ -3,8 +3,6 @@ from tkinter import *
 #from PIL import ImageTk,Image
 import sqlite3
 
-############## Tutorial #23 ##############################
-
 root = Tk()
 root.title('Magic the Gathering Card Catalog')
 root.geometry("400x200")
@@ -17,7 +15,7 @@ conn = sqlite3.connect('card_catalog.db')
 # Create cursor
 c = conn.cursor()
 
-#Create table
+#Create table (only use once to create the table, then comment out)
 '''
 c.execute("""CREATE TABLE catalog (
     card_name text,
@@ -165,7 +163,6 @@ def add_card():
     close_add_btn = Button(add_card_w, text="Close", command=close_add)
     close_add_btn.grid(row=13, column=0, columnspan=2, pady=10, padx=10, ipadx=50)
 
-
 # Create a window to delete a card
 def delete_window():
     global delete_w
@@ -176,7 +173,6 @@ def delete_window():
     # Create Global Variables
     global c_delete
 
-    
     # Create a title for the Window
     dcards_window_label = Label(delete_w, text="Delete a Card from Catalog", font=('Arial, 20'))
     dcards_window_label.grid(row=0, column=0, columnspan=2)
@@ -197,8 +193,6 @@ def delete_window():
     close_delete_btn = Button(delete_w, text="Close", command=close_delete) 
     close_delete_btn.grid(row=3, column=1, pady=10, padx=10, ipadx=50)
 
-
-    
 # Create Delete Function
 def delete():
 
@@ -218,17 +212,12 @@ def delete():
     # Clear the Delete ID Box
     c_delete.delete(0, END)
 
-
-
-
 # Create a Window to Edit a card
 def edit():
     global editor
     editor = Tk()
     editor.title('Edit a Card')
     editor.geometry("400x400")
-    
-
 
     # Create Global Variables
     global editor_id
@@ -247,8 +236,6 @@ def edit():
     # Create a title for the Window
     ecards_window_label = Label(editor, text="Edit a Card from Catalog", font=('Arial, 20'))
     ecards_window_label.grid(row=0, column=0, columnspan=2)
-
-
 
     # Create Text Box Label for Card ID
     editor_id_label = Label(editor, text="ID of Card to Edit")
@@ -306,9 +293,6 @@ def edit():
     editor_c_deck_quantity = Entry(editor, width=30)
     editor_c_deck_quantity.grid(row=12, column=1)
 
-
-
-
     # Create an ID Select Button for the Edit Window
     select_id_btn = Button(editor, text="Select", command=select_id)
     select_id_btn.grid(row=1, column=3)
@@ -320,13 +304,9 @@ def edit():
     # Create a button to close the edit window
     close_edit_btn = Button(editor, text="Close", command=close_edit)
     close_edit_btn.grid(row=14, column=0,columnspan=2, pady=5, padx=10, ipadx=100) 
-
-
-
     
 # Create Select ID Function
 def select_id():
-
 
     # Create a database or connect to one
     conn = sqlite3.connect('card_catalog.db')
@@ -351,15 +331,11 @@ def select_id():
         editor_c_deck.insert(0, card[9])
         editor_c_deck_quantity.insert(0, card[10])
     
-    
     # Commit Changes
     conn.commit()
     # Close Connection
     conn.close()
   
-    #Clear The Text Box
-    #editor_id.delete(0, END)
-
 # Create Editor Submit Function
 def editor_submit():
 
@@ -407,7 +383,6 @@ def editor_submit():
     # Close Connection
     conn.close()
 
-
     #Clear The Text Boxes
     editor_c_name.delete(0, END)
     editor_c_type.delete(0, END)
@@ -422,8 +397,6 @@ def editor_submit():
     editor_c_deck_quantity.delete(0, END)
 
     editor_id.delete(0, END)
-
-
 
 # Create Submit Function
 def submit():
@@ -452,7 +425,6 @@ def submit():
     conn.commit()
     # Close Connection
     conn.close()
-
 
     #Clear The Text Boxes
     c_name.delete(0, END)
@@ -535,7 +507,6 @@ query_btn.grid(row=1, column=0, columnspan=2, pady=5, padx=10, ipadx=130)
 # Create a Button to Edit Cards
 edit_btn = Button(root, text="Edit Card", command=edit)
 edit_btn.grid(row=3, column=0, pady=10, padx=10, ipadx=50)
-
 
 # Commit Changes
 conn.commit()
