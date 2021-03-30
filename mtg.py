@@ -89,7 +89,7 @@ def add_card():
     global add_card_w
     add_card_w = Tk()
     add_card_w.title('Add a Card to Catalog')
-    add_card_w.geometry("400x500")
+    add_card_w.geometry("400x400")
 
     # Create Global Variables for Text Box Names
     global c_name
@@ -171,7 +171,7 @@ def delete_window():
     global delete_w
     delete_w = Tk()
     delete_w.title('Delete a Card')
-    delete_w.geometry("400x400")
+    delete_w.geometry("400x175")
 
     # Create Global Variables
     global c_delete
