@@ -305,6 +305,24 @@ def edit():
     close_edit_btn = Button(editor, text="Close", command=close_edit)
     close_edit_btn.grid(row=14, column=0,columnspan=2, pady=5, padx=10, ipadx=100) 
     
+
+# Create a Window for Decks
+
+def deck_window():
+    global deck_w
+    deck_w =Tk()
+    deck_w.title('Decks')
+    deck_w.geometry("400x400")
+
+    # Create a title for the Window
+    deck_window_label = Label(deck_w, text="Stuff About Decks", font=('Arial, 20'))
+    deck_window_label.grid(row=0, column=0, columnspan=2)
+
+    # Create a button to close the Decks window
+    close_decks_btn = Button(deck_w, text="Close", command=close_decks)
+    close_decks_btn.grid(row=14, column=0,columnspan=2, pady=5, padx=10, ipadx=100) 
+    
+
 # Create Select ID Function
 def select_id():
 
@@ -487,6 +505,12 @@ def close_delete():
 def close_edit():
     editor.destroy()
 
+def close_decks():
+    deck_w.destroy()
+
+def quit():
+    root.destroy()
+
 # Create a title for the Root Window
 root_title_label = Label(root, text="MTG Card Catalog", font=('Arial', 25))
 root_title_label.grid(row=0, column=0, columnspan=2)
@@ -507,6 +531,14 @@ query_btn.grid(row=1, column=0, columnspan=2, pady=5, padx=10, ipadx=130)
 # Create a Button to Edit Cards
 edit_btn = Button(root, text="Edit Card", command=edit)
 edit_btn.grid(row=3, column=0, pady=10, padx=10, ipadx=50)
+
+# Create a Button to Open a Decks Window
+deck_btn = Button(root, text="Decks", command=deck_window)
+deck_btn.grid(row=3, column=1, pady=10, padx=10, ipadx=66)
+
+# Create Button to Close Application
+quit_btn = Button(root, text="Quit", command=quit)
+quit_btn.grid(row=4, column=0, columnspan=2, pady=5, padx=10, ipadx=130)
 
 # Commit Changes
 conn.commit()
