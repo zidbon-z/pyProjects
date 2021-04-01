@@ -508,8 +508,6 @@ def close_edit():
 def close_decks():
     deck_w.destroy()
 
-def quit():
-    root.destroy()
 
 # Create a title for the Root Window
 root_title_label = Label(root, text="MTG Card Catalog", font=('Arial', 25))
@@ -537,7 +535,7 @@ deck_btn = Button(root, text="Decks", command=deck_window)
 deck_btn.grid(row=3, column=1, pady=10, padx=10, ipadx=66)
 
 # Create Button to Close Application
-quit_btn = Button(root, text="Quit", command=quit)
+quit_btn = Button(root, text="Quit", command=root.quit)
 quit_btn.grid(row=4, column=0, columnspan=2, pady=5, padx=10, ipadx=130)
 
 # Commit Changes
