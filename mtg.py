@@ -317,14 +317,14 @@ def deck_window():
 
     # Create a title for the Window
     deck_window_label = Label(deck_w, text="Stuff About Decks", font=('Arial, 20'))
-    deck_window_label.grid(row=0, column=0, columnspan=2)
+    deck_window_label.grid(row=0, column=0, columnspan=9)
 
     # Create titles for the columns
-    d_title_id_label = Label(deck_w, text="ID", width=20)
+    d_title_id_label = Label(deck_w, text="ID", width=5)
     d_title_id_label.grid(row=2, column=0, ipady=10)
-    d_title_name_label = Label(deck_w, text="Name", width=20)
+    d_title_name_label = Label(deck_w, text="Name", width=10)
     d_title_name_label.grid(row=2, column=1, ipady=10)
-    d_title_type_label = Label(deck_w, text="Type", width=20)
+    d_title_type_label = Label(deck_w, text="Type", width=10)
     d_title_type_label.grid(row=2, column=2, ipady=10)
     d_title_race_label = Label(deck_w, text="Race", width=10)
     d_title_race_label.grid(row=2, column=3, ipady=10)
@@ -334,7 +334,7 @@ def deck_window():
     d_title_color_label.grid(row=2, column=5, ipady=10)
     d_title_manacost_label = Label(deck_w, text="Mana Cost", width=10)
     d_title_manacost_label.grid(row=2, column=6, ipady=10)
-    d_title_power_toughness_label = Label(deck_w, text="Power/Toughness", width=10)
+    d_title_power_toughness_label = Label(deck_w, text="P/T", width=10)
     d_title_power_toughness_label.grid(row=2, column=7, ipady=10)
     d_title_deck_label = Label(deck_w, text="Deck", width=10)
     d_title_deck_label.grid(row=2, column=8, ipady=10)
@@ -343,19 +343,19 @@ def deck_window():
     
     # Create deck entry label
     deck_entry_label = Label(deck_w, text="Name of deck to view")
-    deck_entry_label.grid(row=1, column=0)
+    deck_entry_label.grid(row=1, column=0, columnspan=3)
 
     # Create deck entry box
     deck_name = Entry(deck_w, width=30)
-    deck_name.grid(row=1, column=1)
+    deck_name.grid(row=1, column=3, columnspan=3)
 
     # Create deck submit button
     deck_submit_btn = Button(deck_w, text="Submit", command=deck_submit)
-    deck_submit_btn.grid(row=1, column=2)
+    deck_submit_btn.grid(row=1, column=6)
 
     # Create a button to close the Decks window
     close_decks_btn = Button(deck_w, text="Close", command=close_decks)
-    close_decks_btn.grid(row=14, column=0,columnspan=2, pady=5, padx=10, ipadx=100) 
+    close_decks_btn.grid(row=14, column=0,columnspan=4, pady=5, padx=10, ipadx=100) 
 
 def deck_submit():
     # Create a database or connect to one
@@ -371,7 +371,15 @@ def deck_submit():
     # Loop Thru Results
     print_card_id = ''
     print_card_name = ''
-    print_cards_type = ''
+    print_card_type = ''
+    print_card_race = ''
+    print_card_class = ''
+    print_card_color = ''
+    print_card_manacost = ''
+    print_card_strong_tough = ''
+    print_card_deck = ''
+    print_card_quantity = ''
+
     for card in show_cards:
 
         # Format the query output
@@ -382,6 +390,38 @@ def deck_submit():
         print_card_name += str(card[0]) + "\n"
         deck_output_name = Label(deck_w, text=print_card_name)
         deck_output_name.grid(row=3, column=1)
+
+        print_card_type += str(card[1]) + "\n"
+        deck_output_type = Label(deck_w, text=print_card_type)
+        deck_output_type.grid(row=3, column=2)
+
+        print_card_race += str(card[2]) + "\n"
+        deck_output_race = Label(deck_w, text=print_card_race)
+        deck_output_race.grid(row=3, column=3)
+
+        print_card_class += str(card[3]) + "\n"
+        deck_output_class = Label(deck_w, text=print_card_class)
+        deck_output_class.grid(row=3, column=4)
+
+        print_card_color += str(card[4]) + "\n"
+        deck_output_color = Label(deck_w, text=print_card_color)
+        deck_output_color.grid(row=3, column=5)
+
+        print_card_manacost += str(card[5]) + "\n"
+        deck_output_manacost = Label(deck_w, text=print_card_manacost)
+        deck_output_manacost.grid(row=3, column=6)
+
+        print_card_strong_tough += str(card[6]) + "/" + str(card[7]) + "\n"
+        deck_output_strong_tough = Label(deck_w, text=print_card_strong_tough)
+        deck_output_strong_tough.grid(row=3, column=7)
+
+        print_card_deck += str(card[9]) + "\n"
+        deck_output_deck = Label(deck_w, text=print_card_deck)
+        deck_output_deck.grid(row=3, column=8)
+
+        print_card_quantity += str(card[10]) + "\n"
+        deck_output_quantity = Label(deck_w, text=print_card_quantity)
+        deck_output_quantity.grid(row=3, column=9)
 
     
     # Commit Changes
