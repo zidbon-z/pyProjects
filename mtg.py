@@ -5,7 +5,7 @@ import sqlite3
 
 root = Tk()
 root.title('Magic the Gathering Card Catalog')
-root.geometry("400x200")
+root.geometry("400x210")
 
 # Databases
 
@@ -313,7 +313,7 @@ def deck_window():
     global deck_w
     deck_w =Tk()
     deck_w.title('Decks')
-    deck_w.geometry("400x400")
+    deck_w.geometry("800x800")
 
     # Create a title for the Window
     deck_window_label = Label(deck_w, text="Stuff About Decks", font=('Arial, 20'))
