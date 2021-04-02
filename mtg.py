@@ -309,6 +309,7 @@ def edit():
 # Create a Window for Decks
 
 def deck_window():
+    global deck_name
     global deck_w
     deck_w =Tk()
     deck_w.title('Decks')
@@ -318,10 +319,81 @@ def deck_window():
     deck_window_label = Label(deck_w, text="Stuff About Decks", font=('Arial, 20'))
     deck_window_label.grid(row=0, column=0, columnspan=2)
 
+    # Create titles for the columns
+    d_title_id_label = Label(deck_w, text="ID", width=20)
+    d_title_id_label.grid(row=2, column=0, ipady=10)
+    d_title_name_label = Label(deck_w, text="Name", width=20)
+    d_title_name_label.grid(row=2, column=1, ipady=10)
+    d_title_type_label = Label(deck_w, text="Type", width=20)
+    d_title_type_label.grid(row=2, column=2, ipady=10)
+    d_title_race_label = Label(deck_w, text="Race", width=10)
+    d_title_race_label.grid(row=2, column=3, ipady=10)
+    d_title_class_label = Label(deck_w, text="Class", width=10)
+    d_title_class_label.grid(row=2, column=4, ipady=10)
+    d_title_color_label = Label(deck_w, text="Color", width=10)
+    d_title_color_label.grid(row=2, column=5, ipady=10)
+    d_title_manacost_label = Label(deck_w, text="Mana Cost", width=10)
+    d_title_manacost_label.grid(row=2, column=6, ipady=10)
+    d_title_power_toughness_label = Label(deck_w, text="Power/Toughness", width=10)
+    d_title_power_toughness_label.grid(row=2, column=7, ipady=10)
+    d_title_deck_label = Label(deck_w, text="Deck", width=10)
+    d_title_deck_label.grid(row=2, column=8, ipady=10)
+    d_title_deck_quantity_label = Label(deck_w, text="Qty", width=10)
+    d_title_deck_quantity_label.grid(row=2, column=9, ipady=10)
+    
+    # Create deck entry label
+    deck_entry_label = Label(deck_w, text="Name of deck to view")
+    deck_entry_label.grid(row=1, column=0)
+
+    # Create deck entry box
+    deck_name = Entry(deck_w, width=30)
+    deck_name.grid(row=1, column=1)
+
+    # Create deck submit button
+    deck_submit_btn = Button(deck_w, text="Submit", command=deck_submit)
+    deck_submit_btn.grid(row=1, column=2)
+
     # Create a button to close the Decks window
     close_decks_btn = Button(deck_w, text="Close", command=close_decks)
     close_decks_btn.grid(row=14, column=0,columnspan=2, pady=5, padx=10, ipadx=100) 
+
+def deck_submit():
+    # Create a database or connect to one
+    conn = sqlite3.connect('card_catalog.db')
+    # Create cursor
+    c = conn.cursor()
     
+    card_id = deck_name.get()
+    # Query the Database
+    c.execute("SELECT *, oid FROM catalog WHERE card_deck = " + "'" + card_id + "'")
+    show_cards = c.fetchall()
+    
+    # Loop Thru Results
+    print_card_id = ''
+    print_card_name = ''
+    print_cards_type = ''
+    for card in show_cards:
+
+        # Format the query output
+        print_card_id += str(card[11]) + "\n"
+        deck_output_id = Label(deck_w, text=print_card_id)
+        deck_output_id.grid(row=3, column=0)
+
+        print_card_name += str(card[0]) + "\n"
+        deck_output_name = Label(deck_w, text=print_card_name)
+        deck_output_name.grid(row=3, column=1)
+
+    
+    # Commit Changes
+    conn.commit()
+    # Close Connection
+    conn.close()
+
+    # Clear textbox
+
+    deck_name.delete(0, END)
+
+   
 
 # Create Select ID Function
 def select_id():
